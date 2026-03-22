@@ -31,10 +31,10 @@ poetry run app
 pytest
 ```
 ## To do
-- [] Реализовать domain-слой
-- [] Реализовать application-слой
-- [] Реализовать infrastructure-слой
-- [] Реализовать interfaces-слой
-- [] Реализовать core 
-- [] Unit-тесты
-- [] Интеграционные тесты
+- [ ] Реализовать domain-слой
+- [ ] Реализовать application-слой
+- [ ] Реализовать infrastructure-слой
+- [ ] Реализовать interfaces-слой
+- [ ] Реализовать core 
+- [ ] Unit-тесты
+- [ ] Интеграционные тесты
