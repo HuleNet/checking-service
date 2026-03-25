@@ -1,2 +1,2 @@
-def start():
+def start() -> None:
     print("Worked")

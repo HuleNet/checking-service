@@ -2,9 +2,7 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from checking_service.domain.enums.language import Language
-from checking_service.domain.errors.submission_errors import (
-    SubmissionEmptyCodeError,
-)
+from checking_service.domain.domain_errors import InvariantViolationError
 
 
 @dataclass(frozen=True)
@@ -19,4 +17,9 @@ class Submission:
 
     def _check_invariants(self) -> None:
         if not self.code:
-            raise SubmissionEmptyCodeError("Submission.code is empty")
+            raise InvariantViolationError(
+                "Code is empty",
+                model="Submission",
+                field="code",
+                value=self.code,
+            )
