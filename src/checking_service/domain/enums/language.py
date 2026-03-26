@@ -1,5 +1,5 @@
-from enum import Enum
+from checking_service.domain.enums.base_enum import BaseEnum
 
 
-class Language(str, Enum):
+class Language(BaseEnum):
     python = "python"

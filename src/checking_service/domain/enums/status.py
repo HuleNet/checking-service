@@ -1,7 +1,7 @@
-from enum import Enum
+from checking_service.domain.enums.base_enum import BaseEnum
 
 
-class Status(str, Enum):
+class Status(BaseEnum):
     passed = "passed"
     failed = "failed"
     error = "error"

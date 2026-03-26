@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from uuid import UUID
+from datetime import datetime
 
 from checking_service.domain.enums.status import Status
 from checking_service.domain.domain_errors import InvariantViolationError
@@ -13,6 +14,7 @@ class ExecutionResult:
     status: Status
     logs: str
     execution_time_sec: float
+    created_at: datetime
 
     def __post_init__(self) -> None:
         self._check_invariants()

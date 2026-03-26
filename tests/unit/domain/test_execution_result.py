@@ -1,9 +1,9 @@
 from pytest import raises
 
-from factories import make_execution_result
 from checking_service.domain.models.execution_result import ExecutionResult
 from checking_service.domain.enums.status import Status
 from checking_service.domain.domain_errors import InvariantViolationError
+from tests.unit.domain.factories import make_execution_result
 
 
 def test_valid_execution_result() -> None:
@@ -14,8 +14,10 @@ def test_valid_execution_result() -> None:
 
 
 def test_execution_result_execution_time_is_negative() -> None:
-    with raises(InvariantViolationError) as error:
+    with raises(InvariantViolationError) as exc:
         make_execution_result(execution_time_sec=-10.5)
-    assert error.value.context.get("model") == "ExecutionResult"
-    assert error.value.context.get("field") == "execution_time_sec"
-    assert error.value.context.get("value") == -10.5
+    assert exc.value.context == {
+        "model": "ExecutionResult",
+        "field": "execution_time_sec",
+        "value": -10.5,
+    }

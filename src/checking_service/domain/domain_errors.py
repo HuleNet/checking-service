@@ -1,15 +1,38 @@
-from typing import Any, Tuple, Dict
+from typing import Any
+
+from checking_service.core.base_error import BaseError
 
 
-class DomainError(Exception):
+class DomainError(BaseError):
     code: str = "domain_error"
-
-    def __init__(self, message: str, **context: Any) -> None:
-        super().__init__(message)
-        self.message = message
-        self.context = context
 
 
 class InvariantViolationError(DomainError):
     def __init__(self, message: str, *, model: str, field: str, value: Any) -> None:
-        super().__init__(message, model=model, field=field, value=value)
+        super().__init__(
+            message,
+            context={
+                "model": model,
+                "field": field,
+                "value": value,
+            },
+        )
+
+
+class UnsupportedTypeError(DomainError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        field: str,
+        value: Any,
+        allowed: list[str],
+    ) -> None:
+        super().__init__(
+            message,
+            context={
+                "field": field,
+                "value": value,
+                "allowed": allowed,
+            },
+        )

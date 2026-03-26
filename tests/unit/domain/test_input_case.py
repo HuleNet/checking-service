@@ -1,9 +1,9 @@
 from pytest import raises
 
-from factories import make_input_case
 from checking_service.domain.models.input_case import InputCase
 from checking_service.domain.enums.language import Language
 from checking_service.domain.domain_errors import InvariantViolationError
+from tests.unit.domain.factories import make_input_case
 
 
 def test_valid_input_case() -> None:
@@ -14,16 +14,20 @@ def test_valid_input_case() -> None:
 
 
 def test_input_case_input_data_is_empty() -> None:
-    with raises(InvariantViolationError) as error:
+    with raises(InvariantViolationError) as exc:
         make_input_case(input_data="")
-    assert error.value.context.get("model") == "InputCase"
-    assert error.value.context.get("field") == "input_data"
-    assert error.value.context.get("value") == ""
+    assert exc.value.context == {
+        "model": "InputCase",
+        "field": "input_data",
+        "value": "",
+    }
 
 
 def test_input_case_expected_output_is_empty() -> None:
-    with raises(InvariantViolationError) as error:
+    with raises(InvariantViolationError) as exc:
         make_input_case(expected_output="")
-    assert error.value.context.get("model") == "InputCase"
-    assert error.value.context.get("field") == "expected_output"
-    assert error.value.context.get("value") == ""
+    assert exc.value.context == {
+        "model": "InputCase",
+        "field": "expected_output",
+        "value": "",
+    }
