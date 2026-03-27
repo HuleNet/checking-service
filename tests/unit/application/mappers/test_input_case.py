@@ -2,16 +2,17 @@ from uuid import uuid4
 
 from pytest import raises
 
+from checking_service.domain.models import InputCase
 from checking_service.domain.enums.language import Language
 from checking_service.domain.domain_errors import UnsupportedTypeError
 from checking_service.application.mappers.input_case import InputCaseMapper
-from checking_service.application.dto.input_case_dto import CreateInputCaseDTO
+from checking_service.application.dto.input_case import CreateInputCaseDTO
 from tests.unit.application.factories import InputCaseDTOFactory
 
 
 def test_successful_mapping() -> None:
     dto: CreateInputCaseDTO = InputCaseDTOFactory.make_create_dto()
-    domain = InputCaseMapper.to_domain(dto=dto, id=uuid4())
+    domain: InputCase = InputCaseMapper.to_domain(dto=dto, id=uuid4())
     assert domain.language == Language.python
 
 

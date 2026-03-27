@@ -2,7 +2,7 @@ from uuid import uuid4
 
 from checking_service.application.repositories.input_case import InputCaseRepository
 from checking_service.application.mappers.input_case import InputCaseMapper
-from checking_service.application.dto.input_case_dto import CreateInputCaseDTO
+from checking_service.application.dto.input_case import CreateInputCaseDTO
 from checking_service.domain.domain_errors import DomainError
 from checking_service.application.application_errors import ValidationError
 

@@ -1,5 +1,5 @@
 from uuid import UUID, uuid4
-from datetime import datetime
+from datetime import datetime, timezone
 
 from checking_service.domain.enums.language import Language
 from checking_service.domain.enums.status import Status
@@ -59,5 +59,5 @@ def make_execution_result(
         status=status,
         logs=logs,
         execution_time_sec=execution_time_sec,
-        created_at=created_at or datetime.now(),
+        created_at=created_at or datetime.now(timezone.utc),
     )
