@@ -1,5 +1,3 @@
-from typing import Any
-
 from checking_service.core.base_error import BaseError
 
 
@@ -8,4 +6,12 @@ class ApplicationError(BaseError):
 
 
 class ValidationError(ApplicationError):
+    pass
+
+
+class NotFoundError(ApplicationError):
+    pass
+
+
+class ExternalServiceError(ApplicationError):
     pass

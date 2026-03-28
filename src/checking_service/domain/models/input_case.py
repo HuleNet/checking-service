@@ -5,7 +5,7 @@ from checking_service.domain.enums.language import Language
 from checking_service.domain.domain_errors import InvariantViolationError
 
 
-@dataclass(frozen=False)
+@dataclass(frozen=True)
 class InputCase:
     id: UUID
     assignment_id: UUID

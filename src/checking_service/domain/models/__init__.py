@@ -4,7 +4,6 @@ from checking_service.domain.models.submission import Submission
 
 
 __all__ = (
-    "AssignmentLimits",
     "ExecutionResult",
     "InputCase",
     "Submission",
