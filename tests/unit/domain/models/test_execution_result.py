@@ -3,7 +3,7 @@ from pytest import raises
 from checking_service.domain.models.execution_result import ExecutionResult
 from checking_service.domain.enums.status import Status
 from checking_service.domain.domain_errors import InvariantViolationError
-from tests.unit.domain.factories import make_execution_result
+from tests.unit.domain.domain_models_factories import make_execution_result
 
 
 def test_valid_execution_result() -> None:

@@ -3,7 +3,7 @@ from pytest import raises
 from checking_service.domain.models.submission import Submission
 from checking_service.domain.enums.language import Language
 from checking_service.domain.domain_errors import InvariantViolationError
-from tests.unit.domain.factories import make_submission
+from tests.unit.domain.domain_models_factories import make_submission
 
 
 def test_valid_submission() -> None:

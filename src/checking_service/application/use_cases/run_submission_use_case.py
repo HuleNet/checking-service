@@ -35,7 +35,7 @@ class RunSubmissionUseCase:
                 assignment_id=submission.assignment_id,
                 language=submission.language,
             )
-            
+
             if not input_cases:
                 raise NotFoundError(
                     f"Input Cases with assignment_id={dto.assignment_id}, language={dto.language} not found"

@@ -3,7 +3,7 @@ from pytest import raises
 from checking_service.domain.models.input_case import InputCase
 from checking_service.domain.enums.language import Language
 from checking_service.domain.domain_errors import InvariantViolationError
-from tests.unit.domain.factories import make_input_case
+from tests.unit.domain.domain_models_factories import make_input_case
 
 
 def test_valid_input_case() -> None:
