@@ -36,7 +36,7 @@ pytest
 ```
 ## To do
 - [x] Реализовать domain-слой
-- [ ] Реализовать application-слой
+- [x] Реализовать application-слой
 - [ ] Реализовать infrastructure-слой
 - [ ] Реализовать interfaces-слой
 - [ ] Реализовать core 
@@ -44,4 +44,4 @@ pytest
 - [ ] Интеграционные тесты
 ## Ход работы
 Создал domain-слой. Получилось 3 модели: модель для тестов (InputCase), модель для запроса на проверку (Submission), модель для лога проверки кода (ExecutionResult). Написал unit-тесты для этого слоя.
-Теперь создаю application-слой.
+Создал application-слой. Логику этого слоя можно разделить на 2 ветви: CRUD для entity (ExecutionResult и InputCase) и прогон набора тестов на коде из Submission. Написал unit-тесты для mappers, пары use_cases (в этих тестах тестируется логика остальных use_cases).
