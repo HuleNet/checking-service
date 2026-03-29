@@ -1,5 +1,4 @@
 from checking_service.domain.enums.language import Language
-from checking_service.domain.enums.status import Status
 from checking_service.domain.domain_errors import UnsupportedTypeError
 
 
