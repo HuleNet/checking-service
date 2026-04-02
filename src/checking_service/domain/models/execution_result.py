@@ -3,7 +3,7 @@ from uuid import UUID
 from datetime import datetime
 
 from checking_service.domain.enums.status import Status
-from checking_service.domain.domain_errors import InvariantViolationError
+from checking_service.domain.errors.domain_errors import InvariantViolationError
 
 
 @dataclass(frozen=True)
@@ -23,7 +23,9 @@ class ExecutionResult:
         if self.execution_time_sec < 0:
             raise InvariantViolationError(
                 "Execution time is negative number",
-                model="ExecutionResult",
-                field="execution_time_sec",
-                value=self.execution_time_sec,
+                context={
+                    "model": "ExecutionResult",
+                    "field": "execution_time_sec",
+                    "value": self.execution_time_sec,
+                },
             )

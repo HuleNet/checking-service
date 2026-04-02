@@ -5,7 +5,11 @@ from checking_service.application.mappers.execution_result_mapper import (
     ExecutionResultMapper,
 )
 from checking_service.application.dto.execution_result import ExecutionResultDTO
-from checking_service.application.application_errors import NotFoundError
+from checking_service.application.application_errors import (
+    ExternalServiceError,
+    NotFoundError,
+)
+from checking_service.infrastructure.infrastructure_errors import InfrastructureError
 
 
 class GetByIdExecutionResultUseCase:
@@ -13,10 +17,22 @@ class GetByIdExecutionResultUseCase:
         self._uow = uow
 
     async def execute(self, id: UUID) -> ExecutionResultDTO:
-        async with self._uow:
-            domain = await self._uow.execution_results.get_by_id(id=id)
+        try:
+            async with self._uow:
+                domain = await self._uow.execution_results.get_by_id(id=id)
 
-            if domain is None:
-                raise NotFoundError(f"Execution Result with id={id} not found")
+                if domain is None:
+                    raise NotFoundError(
+                        "ExecutionResult not found",
+                        context={
+                            "id": str(id),
+                        },
+                    )
 
-            return ExecutionResultMapper.to_dto(domain=domain)
+                return ExecutionResultMapper.to_dto(domain=domain)
+
+        except InfrastructureError as exc:
+            raise ExternalServiceError(
+                "Infrastructure service failure",
+                context=exc.context,
+            ) from exc

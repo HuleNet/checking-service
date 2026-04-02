@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from checking_service.domain.enums.language import Language
-from checking_service.domain.domain_errors import InvariantViolationError
+from checking_service.domain.errors.domain_errors import InvariantViolationError
 
 
 @dataclass(frozen=True)
@@ -20,15 +20,19 @@ class InputCase:
         if not self.input_data:
             raise InvariantViolationError(
                 "Input data is empty",
-                model="InputCase",
-                field="input_data",
-                value=self.input_data,
+                context={
+                    "model": "InputCase",
+                    "field": "input_data",
+                    "value": self.input_data,
+                },
             )
 
         if not self.expected_output:
             raise InvariantViolationError(
                 "Expected output is empty",
-                model="InputCase",
-                field="expected_output",
-                value=self.expected_output,
+                context={
+                    "model": "InputCase",
+                    "field": "expected_output",
+                    "value": self.expected_output,
+                },
             )

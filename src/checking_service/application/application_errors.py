@@ -1,17 +1,17 @@
-from checking_service.core.base_error import BaseError
+from checking_service.domain.errors.base_error import BaseError
 
 
 class ApplicationError(BaseError):
-    code: str = "application_error"
+    code = "application_error"
 
 
 class ValidationError(ApplicationError):
-    pass
+    code = "validation_error"
 
 
 class NotFoundError(ApplicationError):
-    pass
+    code = "not_found"
 
 
 class ExternalServiceError(ApplicationError):
-    pass
+    code = "external_service_error"

@@ -1,5 +1,4 @@
 from typing import Self
-from types import TracebackType
 
 from checking_service.application.ports.unit_of_work import UnitOfWork
 from tests.unit.application.mocks.mock_repos import (
@@ -20,10 +19,9 @@ class MockUnitOfWork(UnitOfWork):
     async def __aexit__(
         self,
         exc_type: type[BaseException] | None,
-        exc: BaseException | None,
-        tb: TracebackType | None,
+        *args,
     ) -> None:
-        if exc:
+        if exc_type:
             await self.rollback()
         else:
             await self.commit()

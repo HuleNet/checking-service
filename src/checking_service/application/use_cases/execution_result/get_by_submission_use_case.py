@@ -5,6 +5,8 @@ from checking_service.application.mappers.execution_result_mapper import (
     ExecutionResultMapper,
 )
 from checking_service.application.dto.execution_result import ExecutionResultDTO
+from checking_service.application.application_errors import ExternalServiceError
+from checking_service.infrastructure.infrastructure_errors import InfrastructureError
 
 
 class GetBySubmissionExecutionResultUseCase:
@@ -12,9 +14,17 @@ class GetBySubmissionExecutionResultUseCase:
         self._uow = uow
 
     async def execute(self, submission_id: UUID) -> list[ExecutionResultDTO]:
-        async with self._uow:
-            domains = await self._uow.execution_results.get_by_submission(
-                submission_id=submission_id
-            )
+        try:
+            async with self._uow:
+                domains = await self._uow.execution_results.get_by_submission(
+                    submission_id=submission_id
+                )
 
-            return [ExecutionResultMapper.to_dto(domain=domain) for domain in domains]
+                return [
+                    ExecutionResultMapper.to_dto(domain=domain) for domain in domains
+                ]
+
+        except InfrastructureError as exc:
+            raise ExternalServiceError(
+                "Infrastructure service failure", context=exc.context
+            ) from exc

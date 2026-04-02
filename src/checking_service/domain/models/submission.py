@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from checking_service.domain.enums.language import Language
-from checking_service.domain.domain_errors import InvariantViolationError
+from checking_service.domain.errors.domain_errors import InvariantViolationError
 
 
 @dataclass(frozen=True)
@@ -19,7 +19,9 @@ class Submission:
         if not self.code:
             raise InvariantViolationError(
                 "Code is empty",
-                model="Submission",
-                field="code",
-                value=self.code,
+                context={
+                    "model": "Submission",
+                    "field": "code",
+                    "value": self.code,
+                },
             )

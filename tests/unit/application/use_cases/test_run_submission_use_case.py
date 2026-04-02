@@ -18,9 +18,7 @@ from tests.unit.application.dto_factories import SubmissionDTOFactory
 @mark.asyncio
 async def test_successful_use_case() -> None:
     submission = SubmissionDTOFactory.make_dto()
-
     uow = MockUnitOfWork()
-
     await uow.input_cases.create(
         input_case=make_input_case(
             assignment_id=submission.assignment_id,
@@ -42,7 +40,6 @@ async def test_successful_use_case() -> None:
             expected_output="8",
         )
     )
-
     runner = MockRunner(
         {
             "2 2": RunResult(
@@ -56,11 +53,8 @@ async def test_successful_use_case() -> None:
             ),
         }
     )
-
     use_case = RunSubmissionUseCase(uow=uow, runner=runner)
-
     await use_case.execute(dto=submission)
-
     result = await uow.execution_results.get_by_submission(submission_id=submission.id)
     statuses = [r.status for r in result]
 
@@ -88,9 +82,7 @@ async def test_empty_tests_use_case() -> None:
 @mark.asyncio
 async def test_validation_error_use_case() -> None:
     invalid_submission = SubmissionDTOFactory.make_dto(language="lua")
-
     uow = MockUnitOfWork()
-
     await uow.input_cases.create(
         input_case=make_input_case(
             assignment_id=invalid_submission.assignment_id,
@@ -112,7 +104,6 @@ async def test_validation_error_use_case() -> None:
             expected_output="8",
         )
     )
-
     runner = MockRunner(
         {
             "2 2": RunResult(
@@ -126,14 +117,16 @@ async def test_validation_error_use_case() -> None:
             ),
         }
     )
-
     use_case = RunSubmissionUseCase(uow=uow, runner=runner)
 
     with raises(ValidationError) as exc:
         await use_case.execute(dto=invalid_submission)
 
     assert exc.value.context == {
-        "field": "language",
-        "value": "lua",
-        "allowed": Language.values(),
+        "error": "unsupported_type",
+        "details": {
+            "field": "language",
+            "value": "lua",
+            "allowed": Language.values(),
+        },
     }

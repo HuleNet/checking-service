@@ -5,5 +5,5 @@ class Status(BaseEnum):
     passed = "passed"
     failed = "failed"
     error = "error"
-    time_out = "time_out"
+    timeout = "timeout"
     memory_out = "memory_out"
